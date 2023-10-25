@@ -1,5 +1,6 @@
 package com.procesos.tienda.service;
 
+import com.procesos.tienda.Util.Constants;
 import com.procesos.tienda.model.Address;
 import com.procesos.tienda.model.User;
 import com.procesos.tienda.repository.AddressRepository;
@@ -18,16 +19,13 @@ public class AddressService {
 
     public Address createAddress(Address address, Long idUser){
         User user = userService.getUserById(idUser);
-        if(user == null){
-            throw new RuntimeException("User not found");
-        }
         address.setUser(user);
         return addressRepository.save(address);
     }
     public Address updateStatusAddress(Long id){
         Optional <Address> address = addressRepository.findById(id);
         if(address.isEmpty()){
-            throw new RuntimeException("Address not found");
+            throw new RuntimeException(Constants.ADDRESS_NOT_FOUND.getMessage());
         }
         address.get().setStatus(Boolean.FALSE);
         return addressRepository.save(address.get());
@@ -35,7 +33,7 @@ public class AddressService {
     public Address getByIdAddress(Long id){
         Optional <Address> address = addressRepository.findById(id);
         if(address.isEmpty()){
-            throw new RuntimeException("Address not found");
+            throw new RuntimeException(Constants.ADDRESS_NOT_FOUND.getMessage());
         }
         return address.get();
     }

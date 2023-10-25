@@ -19,7 +19,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("users/{id}")
+    @GetMapping("users/{id_user}")
     public ResponseEntity<User> getUserById(@PathVariable Long id){
         return ResponseEntity.ok(userService.getUserById(id));
 
